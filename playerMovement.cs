@@ -11,7 +11,7 @@ public class playerMovement : MonoBehaviour
     private Rigidbody2D myRigidbody;
 
     //make a reference to how much I want the players position to change
-    private Vector2 change;
+    private Vector3 change;
 
     // Start is called before the first frame update
     void Start()
@@ -24,10 +24,23 @@ public class playerMovement : MonoBehaviour
     void Update()
     {
         //once per frame set change to zero
-        change = Vector2.zero;
+        change = Vector3.zero;
 
         //find out if an input button was pressed and make change equal to the corisonding button press
         change.x = Input.GetAxisRaw("Horizontal");
         change.y = Input.GetAxisRaw("Vertical");
+
+        //if change doesn't equal 0 then player isn't still and must move
+        if(change != Vector3.zero)
+        {
+            MoveCharacter();
+        }
+    }
+
+    //create a function called move character
+    void MoveCharacter()
+    {
+        myRigidbody.MovePosition(
+            transform.position + change * speed * Time.deltaTime);
     }
 }

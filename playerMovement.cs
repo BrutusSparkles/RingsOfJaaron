@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
 public class playerMovement : MonoBehaviour
 {
     //declare a variable to eventually store my speed
@@ -13,9 +17,15 @@ public class playerMovement : MonoBehaviour
     //make a reference to how much I want the players position to change
     private Vector3 change;
 
+    //make a reference to the animator inside unity
+    private Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
+        //complete the refence to animator
+        animator = GetComponent<Animator>();
+
         //make myRigidbody equal to the main charactor sprite
         myRigidbody = GetComponent<Rigidbody2D>();
     }
@@ -34,6 +44,8 @@ public class playerMovement : MonoBehaviour
         if(change != Vector3.zero)
         {
             MoveCharacter();
+            animator.SetFloat("moveX", change.x);
+            animator.SetFloat("moveY", change.y);
         }
     }
 
